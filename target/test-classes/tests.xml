@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "loginTests">
+
+    <listeners>
+        <listener class-name="Utilities.Listeners.MyTestListener"/>
+    </listeners>
+
+    <test name="P1 LoginTests2">
+        <groups>
+            <run>
+                <include name="p1"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LoginTests">
+            </class>
+
+        </classes>
+    </test>
+
+    <test name="P2 LoginTests2">
+        <groups>
+            <run>
+                <include name="p2"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LoginTests"/>
+        </classes>
+    </test>
+
+    <test name="P3 LoginTests2">
+        <groups>
+            <run>
+                <include name="p3"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LoginTests">
+                <methods>
+                    <exclude name="invalidLoginTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

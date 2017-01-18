@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "loginTests" >
+
+    <parameter name="language" value="en"/>
+    <parameter name="browserType" value="chrome"/>
+    <parameter name="email" value="genchevskiy@singree.com"/>
+    <parameter name="password" value="19021992qa"/>
+    <parameter name="errorMessage" value="Неправильный логин или пароль"/>
+
+    <test name="test">
+        <classes>
+            <class name="LoginTests"/>
+        </classes>
+    </test>
+
+
+
+</suite>
