@@ -2,7 +2,10 @@ import Utilities.DriverFactory;
 import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
 import data.LoginData;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -10,33 +13,36 @@ import pages.BasePage;
 import pages.Website;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(MyTestListener.class)
 public class LoginTests2 {
 
+
+
     public static WebDriver driver;
     public static WebDriverWait wait;
-
     public static BasePage basePage;
     public static Website website;
 
 
 
-    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
+    //public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
 
 
 
     @BeforeClass(alwaysRun = true)
     public static void setUp() throws Exception{
+
         // GET BROWSER FROM DRIVER FACTORY
-        driver = DriverFactory.getDriver(type);
+        //driver = DriverFactory.getDriver(type);
 
         // GET BROWSER FROM LOCAL DIRECTORY
         //driver = new ChromeDriver();
 
         //GET BROWSER FROM PROPERTY FILE
-        //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
+        driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();

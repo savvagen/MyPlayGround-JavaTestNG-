@@ -6,9 +6,12 @@ import data.LoginData;
 import junitx.util.PropertyManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -18,6 +21,7 @@ import sun.plugin2.util.BrowserType;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -32,22 +36,20 @@ public class LoginTests {
     public static BasePage basePage;
     public static Website website;
 
-    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
+    //public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
 
 
     @BeforeMethod(alwaysRun = true)
     public static void setUp() throws Exception{
 
         // GET BROWSER FROM DRIVER FACTORY
-        driver = DriverFactory.getDriver(type);
+        //driver = DriverFactory.getDriver(type);
 
         // GET BROWSER FROM LOCAL DIRECTORY
         //driver = new ChromeDriver();
 
         //GET BROWSER FROM PROPERTY FILE
-        //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
-
-
+        driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -55,15 +57,20 @@ public class LoginTests {
         basePage = new BasePage(driver);
         //basePage = PageFactory.initElements(driver, pages.BasePage.class);
         website = new Website(driver);
+
     }
 
+
+
+
     @AfterMethod(alwaysRun = true)
-    public static void tearDown(ITestResult testResult) throws IOException {
+    public static void tearDown(ITestResult testResult) throws Exception {
         if (testResult.getStatus() == ITestResult.FAILURE){
             ScreenshotReporter.tackeScreensghot(driver, testResult.getMethod().getMethodName());
         }
         driver.quit();
     }
+
 
 
 
@@ -113,39 +120,6 @@ public class LoginTests {
         website .loginUserWitchIncorrectEmail(email,password,error);
     }
 
-
-
-
-    /*
-    @Parameters({"language", "browserType"})
-    @Test(groups = {"p4", "TestWithParams"})
-    public void xmlParametryzedHomePageTest(String language, String browserType){
-        System.out.println("Language: " + language);
-        System.out.println("Browser: " + browserType);
-        website.homePage().openHomePage();
-        website.homePage().searchForHomePageTitle();
-    }
-
-    @Parameters({"email", "password", "language", "browserType"})
-    @Test(groups = {"p4", "LoginParametrizedTest"}, dependsOnMethods = "xmlParametryzedHomePageTest")
-    public void xmlParametrizedloginTest(String email, String password, String language, String browserType){
-        System.out.println("Language: " + language);
-        System.out.println("Browser: " + browserType);
-        website.loginPage().openLoginPage();
-        website.loginPage().loginUser(email,password);
-        website.loginPage().searchForPositiveLoginResults();
-
-    }
-
-    @Parameters({"email", "password", "language", "browserType"})
-    @Test
-    public void xmParamsTest(String email, String password, @Optional String language, @Optional String browserType){
-        System.out.println("Language: " + language);
-        System.out.println("Browser: " + browserType);
-        website.loginPage().openLoginPage();
-        website.loginPage().loginUser(email,password);
-        website.loginPage().searchForPositiveLoginResults();
-    }*/
 
 
 

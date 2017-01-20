@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="GridTests" parallel="tests" thread-count="2" configfailurepolicy="continue" preserve-order="true">
+
+    <test name="chromeTests">
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="platform" value="Linux"/>
+        <parameter name="hostName" value="http://localhost:5556"/>
+        <classes>
+            <class name="SeleniumGridTests"/>
+        </classes>
+    </test>
+
+    <test name="firefoxTests">
+        <parameter name="browserName" value="firefox"/>
+        <parameter name="platform" value="Linux"/>
+        <parameter name="hostName" value="http://localhost:5555"/>
+        <classes>
+            <class name="SeleniumGridTests"/>
+        </classes>
+    </test>
+
+</suite>

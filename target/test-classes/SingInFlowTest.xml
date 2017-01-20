@@ -9,7 +9,7 @@
 
     <test name="test">
         <classes>
-            <class name="LoginTests3"/>
+            <class name="SignInFlowTest"/>
         </classes>
     </test>
 </suite>

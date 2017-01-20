@@ -1,47 +1,31 @@
 import Utilities.DriverFactory;
+import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
-import data.LoginData;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pages.BasePage;
 import pages.Website;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+@Listeners(MyTestListener.class)
 public class LoginTests3 {
 
 
     public static WebDriver driver;
     public static WebDriverWait wait;
-
     public static BasePage basePage;
     public static Website website;
 
     public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
 
 
+    @BeforeMethod(alwaysRun = true)
+    public static void setUp() throws Exception{
 
-    HashMap<String, String> invalidLoginDataMap;
-
-
-    @Factory(dataProvider = "invalidLoginData",dataProviderClass = LoginData.class)
-    public LoginTests3(String pageTitle, String email, String password, String errorMessage){
-        invalidLoginDataMap =new HashMap<String, String>();
-        invalidLoginDataMap.put("pageTitle", pageTitle);
-        invalidLoginDataMap.put("email", email);
-        invalidLoginDataMap.put("password", password);
-        invalidLoginDataMap.put("errorMessage", errorMessage);
-
-    }
-
-
-
-    @BeforeClass(alwaysRun = true)
-    public static void setUp(){
         // GET BROWSER FROM DRIVER FACTORY
         //driver = DriverFactory.getDriver(type);
 
@@ -54,15 +38,17 @@ public class LoginTests3 {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
-
-
         basePage = new BasePage(driver);
         //basePage = PageFactory.initElements(driver, pages.BasePage.class);
-        website  = new Website(driver);
+        website = new Website(driver);
+
     }
 
-    @AfterClass(alwaysRun = true)
-    public static void tearDown(ITestResult testResult) throws IOException {
+
+
+
+    @AfterMethod(alwaysRun = true)
+    public static void tearDown(ITestResult testResult) throws Exception {
         if (testResult.getStatus() == ITestResult.FAILURE){
             ScreenshotReporter.tackeScreensghot(driver, testResult.getMethod().getMethodName());
         }
@@ -71,29 +57,36 @@ public class LoginTests3 {
 
 
 
-    @org.testng.annotations.Test(groups = {"g1"})
-    public void loadHomePage(){
+
+    @Parameters({"language", "browserType"})
+    @Test(groups = {"p4", "TestWithParams"})
+    public void xmlParametryzedHomePageTest(String language, String browserType){
+        System.out.println("Language: " + language);
+        System.out.println("Browser: " + browserType);
         website.homePage().openHomePage();
         website.homePage().searchForHomePageTitle();
-        website.homePage().searchForTitle(invalidLoginDataMap.get("pageTitle"));
     }
 
-    @org.testng.annotations.Test(groups = {"g1"}, dependsOnMethods = "LoginTests3.loadHomePage")
-    public void setInvalidData(){
+    @Parameters({"email", "password", "language", "browserType"})
+    @Test(groups = {"p4", "LoginParametrizedTest"}, dependsOnMethods = "xmlParametryzedHomePageTest")
+    public void xmlParametrizedloginTest(String email, String password, String language, String browserType){
+        System.out.println("Language: " + language);
+        System.out.println("Browser: " + browserType);
         website.loginPage().openLoginPage();
-        website.loginPage().loginWithInvalidData(invalidLoginDataMap.get("email"), invalidLoginDataMap.get("password"));
+        website.loginPage().loginUser(email,password);
+        website.loginPage().searchForPositiveLoginResults();
+
     }
 
-    @Test(groups = {"g1"}, dependsOnMethods = "LoginTests3.setInvalidData")
-    public void checkInvaldlogin(){
-        website.loginPage().searchForErrorMessage(invalidLoginDataMap.get("errorMessage"));
+    @Parameters({"email", "password", "language", "browserType"})
+    @Test
+    public void xmParamsTest(String email, String password, @Optional String language, @Optional String browserType){
+        System.out.println("Language: " + language);
+        System.out.println("Browser: " + browserType);
+        website.loginPage().openLoginPage();
+        website.loginPage().loginUser(email,password);
+        website.loginPage().searchForPositiveLoginResults();
     }
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,41 @@
+{
+  "capabilities":
+  [
+    {
+      "browserName": "firefox",
+      "maxInstances": 5,
+      "platform": "LINUX",
+      "chrome_binary": "/home/savva/IdeaProjects/TestNgProject/drivers/geckodriver",
+      "seleniumProtocol": "WebDriver"
+    },
+    {
+      "browserName": "chrome",
+      "maxInstances": 4,
+      "platform": "LINUX",
+      "chrome_binary": "/home/savva/IdeaProjects/TestNgProject/drivers/chromedriver",
+      "seleniumProtocol": "WebDriver"
+    },
+    {
+      "browserName": "opera",
+      "maxInstances": 3,
+      "platform": "LINUX",
+      "opera_binary": "home/savva/IdeaProjects/TestNgProject/drivers/operadriver",
+      "seleniumProtocol": "WebDriver"
+    }
+  ],
+  "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+  "maxSession": 6,
+  "port": 5555,
+  "register": true,
+  "registerCycle": 5000,
+  "hub": "http://localhost:4444",
+  "nodeStatusCheckTimeout": 5000,
+  "nodePolling": 5000,
+  "role": "node",
+  "unregisterIfStillDownAfter": 60000,
+  "downPollingLimit": 2,
+  "debug": false,
+  "servlets" : [],
+  "withoutServlets": [],
+  "custom": {}
+}
