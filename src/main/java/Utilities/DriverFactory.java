@@ -44,13 +44,13 @@ public class DriverFactory {
     public static WebDriver getDriver(BrowserType type) throws Exception{
 
 
-        if (PropertyManager.getProperty("USE_GRID").equalsIgnoreCase("true")){
+        /*if (PropertyManager.getProperty("USE_GRID").equalsIgnoreCase("true")){
 
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setBrowserName(type.getBrowsername());
             desiredCapabilities.setPlatform(Platform.LINUX);
             return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), desiredCapabilities);
-        }
+        }*/
 
 
         switch (type){

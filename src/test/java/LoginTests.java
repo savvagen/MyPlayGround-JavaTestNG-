@@ -36,20 +36,20 @@ public class LoginTests {
     public static BasePage basePage;
     public static Website website;
 
-    //public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
+    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
 
 
     @BeforeMethod(alwaysRun = true)
     public static void setUp() throws Exception{
 
         // GET BROWSER FROM DRIVER FACTORY
-        //driver = DriverFactory.getDriver(type);
+        driver = DriverFactory.getDriver(type);
 
         // GET BROWSER FROM LOCAL DIRECTORY
         //driver = new ChromeDriver();
 
         //GET BROWSER FROM PROPERTY FILE
-        driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
+        //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();

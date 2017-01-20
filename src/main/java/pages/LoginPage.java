@@ -129,7 +129,7 @@ public class LoginPage {
 
     public void clickLogoutButton(){
         logoutButton.click();
-        wait.until(ExpectedConditions.titleIs("Главная"));
+        wait.until(ExpectedConditions.titleContains("Главная"));
     }
 
 

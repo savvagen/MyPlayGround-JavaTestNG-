@@ -20,7 +20,7 @@ public class ScreenshotReporter {
 
             File source = screenshot.getScreenshotAs(OutputType.FILE);
 
-            FileUtils.copyFile(source, new File("./Screenshots/"+screenshotname+".png"));
+            FileUtils.copyFile(source, new File("./Screenshots/FailedTests/"+screenshotname+".png"));
 
             System.out.println("Screenshot Taken");
 

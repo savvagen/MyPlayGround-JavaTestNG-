@@ -26,47 +26,43 @@ public class LoginTests2 {
     public static BasePage basePage;
     public static Website website;
 
+    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
 
 
-    //public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
-
-
-
-    @BeforeClass(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public static void setUp() throws Exception{
 
         // GET BROWSER FROM DRIVER FACTORY
-        //driver = DriverFactory.getDriver(type);
+        driver = DriverFactory.getDriver(type);
 
         // GET BROWSER FROM LOCAL DIRECTORY
         //driver = new ChromeDriver();
 
         //GET BROWSER FROM PROPERTY FILE
-        driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
+        //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
-
-
         basePage = new BasePage(driver);
         //basePage = PageFactory.initElements(driver, pages.BasePage.class);
         website  = new Website(driver);
 
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public static void tearDown(ITestResult testResult) throws IOException {
         if (testResult.getStatus() == ITestResult.FAILURE){
             ScreenshotReporter.tackeScreensghot(driver, testResult.getMethod().getMethodName());
         }
+        if (driver != null) {
+            driver.quit();
 
-        driver.quit();
-
+        }
     }
 
 
-    @org.testng.annotations.Test
+    /*@org.testng.annotations.Test
     public void homepageVerification(){
         basePage.openHomePage();
         basePage.searchForHomePageTitle();
@@ -77,17 +73,17 @@ public class LoginTests2 {
     public void homePageProducts(){
         basePage.openHomePage();
         basePage.searchForhomepageNewestProducts();
-    }
+    }*/
 
     @org.testng.annotations.Test
     public void positiveLogin(){
         basePage.openLoginPage();
-        basePage.loginUser("genchevskiy@singree.com", "19021992qa");
+        basePage.loginUser("genchevskiy@singree.com", "19021992qaqq");
         basePage.searchForPositiveLoginResults();
         website.loginPage().clickLogoutButton();
     }
 
-    @org.testng.annotations.Test(dataProvider = "invalidEmailData", dataProviderClass = LoginData.class)
+    /*@org.testng.annotations.Test(dataProvider = "invalidEmailData", dataProviderClass = LoginData.class)
     public void invalidLogin(String email, String password, String errorMessage){
         basePage.openLoginPage();
         basePage.loginWithInvalidData(email, password);
@@ -97,7 +93,7 @@ public class LoginTests2 {
     @org.testng.annotations.Test
     public void loginTest(){
         website.loginUserWithCredantials("genchevskiy@singree.com", "19021992qa");
-    }
+    }*/
 
 
 
