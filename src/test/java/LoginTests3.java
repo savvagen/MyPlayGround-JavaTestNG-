@@ -1,8 +1,8 @@
+import Utilities.Browser;
 import Utilities.DriverFactory;
 import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -28,13 +28,12 @@ public class LoginTests3 {
 
         // GET BROWSER FROM DRIVER FACTORY
         //driver = DriverFactory.getDriver(type);
-
         // GET BROWSER FROM LOCAL DIRECTORY
         //driver = new ChromeDriver();
-
         //GET BROWSER FROM PROPERTY FILE
         //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
-
+        // GET BROWSER FROM BROWSER UTILITY
+        driver = Browser.getBrowser("firefox");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);

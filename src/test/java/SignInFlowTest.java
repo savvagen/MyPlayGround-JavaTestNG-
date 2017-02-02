@@ -1,11 +1,14 @@
+import Utilities.Browser;
 import Utilities.DriverFactory;
 import Utilities.ScreenshotReporter;
 import data.LoginData;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Factory;
+import org.testng.annotations.Test;
 import pages.BasePage;
 import pages.Website;
 
@@ -45,18 +48,15 @@ public class SignInFlowTest {
     public static void setUp(){
         // GET BROWSER FROM DRIVER FACTORY
         //driver = DriverFactory.getDriver(type);
-
         // GET BROWSER FROM LOCAL DIRECTORY
         //driver = new ChromeDriver();
-
         //GET BROWSER FROM PROPERTY FILE
         //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
-
+        // GET BROWSER FROM BROWSER UTILITY
+        driver = Browser.getBrowser("firefox");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
-
-
         basePage = new BasePage(driver);
         //basePage = PageFactory.initElements(driver, pages.BasePage.class);
         website  = new Website(driver);
