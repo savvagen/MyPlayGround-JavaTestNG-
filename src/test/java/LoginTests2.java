@@ -14,6 +14,7 @@ import pages.Website;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+
 @Listeners(MyTestListener.class)
 public class LoginTests2 {
 
@@ -27,6 +28,17 @@ public class LoginTests2 {
     public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
 
 
+
+    {
+        System.setProperty("atu.reporter.config", "C:\\Users\\savva\\IdeaProjects\\TestNgProject\\atuReporter\\atu.properties");
+    }
+
+
+
+
+
+
+
     @BeforeMethod(alwaysRun = true)
     public static void setUp() throws Exception{
 
@@ -38,6 +50,7 @@ public class LoginTests2 {
 
         //GET BROWSER FROM PROPERTY FILE
         //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
+
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -58,6 +71,10 @@ public class LoginTests2 {
 
         }
     }
+
+    
+
+
 
 
     @org.testng.annotations.Test
@@ -96,5 +113,7 @@ public class LoginTests2 {
 
 
 
-
 }
+
+
+

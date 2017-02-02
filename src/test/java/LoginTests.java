@@ -9,7 +9,6 @@ import org.testng.annotations.*;
 import pages.BasePage;
 import pages.Website;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -23,12 +22,14 @@ public class LoginTests {
 
     public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
 
-    public LoginTests() throws IOException {
-    }
+
+
 
 
     @BeforeClass(alwaysRun = true)
     public static void seUpClass(Object[] args) throws Exception {
+
+
         // GET BROWSER FROM DRIVER FACTORY
         driver = DriverFactory.getDriver(type);
 
@@ -38,14 +39,13 @@ public class LoginTests {
         //GET BROWSER FROM PROPERTY FILE
         //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
 
+
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS.SECONDS);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
         basePage = new BasePage(driver);
         //basePage = PageFactory.initElements(driver, pages.BasePage.class);
         website = new Website(driver);
-
-
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -114,7 +114,7 @@ public class LoginTests {
     }*/
 
     //ddt from exel sheet
-    @Test(dataProvider = "exelData2", dataProviderClass = LoginData.class)
+    @Test(dataProvider = "exelData-fromExelUtil", dataProviderClass = LoginData.class)
     public void invalidLoginTestEXEL(String email, String password, String errorMessage){
         website .loginUserWitchIncorrectEmail(email,password,errorMessage);
     }

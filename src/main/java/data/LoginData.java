@@ -37,7 +37,7 @@ public class LoginData {
     }
 
 
-    @DataProvider(name = "exelData1")
+    @DataProvider(name = "exelData-fromExelDataConfig")
     public Object[][] parsDataFromExel() throws IOException {
         ExelDataConfig config = new ExelDataConfig("C:\\Users\\savva\\IdeaProjects\\TestNgProject\\src\\main\\java\\data\\loginData.xlsx");
         int rows = config.getRowCount(0);
@@ -53,7 +53,7 @@ public class LoginData {
 
 
 
-    @DataProvider(name="exelData2")
+    @DataProvider(name="exelData-fromExelUtil")
     public Object[][] loginData() {
         Object[][] arrayObject = exelUtil.getExcelData("C:\\Users\\savva\\IdeaProjects\\TestNgProject\\src\\main\\java\\data\\loginData.xls","Sheet1");
         return arrayObject;
