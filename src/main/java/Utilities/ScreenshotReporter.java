@@ -36,5 +36,12 @@ public class ScreenshotReporter {
 
     }
 
+    public static void tackeScreensghotPassedTests(WebDriver driver,String screnshotname) throws IOException{
+        TakesScreenshot screenshot =(TakesScreenshot)driver;
+        File source = screenshot.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(source, new File("./Screenshots/PassedTests/"+screnshotname+".png"));
+        System.out.println("Screenshot Taken");
+    }
+
 
 }

@@ -2,6 +2,9 @@ import Utilities.Browser;
 import Utilities.DriverFactory;
 import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import data.LoginData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,7 +28,8 @@ public class LoginTests2 {
     public static WebDriverWait wait;
     public static BasePage basePage;
     public static Website website;
-    public static Browser browser;
+    public static ExtentReports extentReports;
+    public static ExtentTest test;
 
     public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
 
@@ -41,6 +45,8 @@ public class LoginTests2 {
 
     @BeforeMethod(alwaysRun = true)
     public static void setUp() throws Exception{
+        //Setup ExtentReports
+        extentReports = new ExtentReports("/home/savva/IdeaProjects/FabrikaProject/Reports/ExtentReport.html", false);
         // GET BROWSER FROM DRIVER FACTORY
         //driver = DriverFactory.getDriver(type);
         // GET BROWSER FROM LOCAL DIRECTORY
@@ -63,10 +69,13 @@ public class LoginTests2 {
         if (testResult.getStatus() == ITestResult.FAILURE){
             ScreenshotReporter.tackeScreensghot(driver, testResult.getMethod().getMethodName());
         }
-        if (driver != null) {
-            driver.quit();
+        ScreenshotReporter.tackeScreensghotPassedTests(driver, testResult.getMethod().getMethodName());
 
-        }
+        driver.quit();
+        ///Write results to ExtentReport.html
+        extentReports.flush();
+        extentReports.close();
+
     }
 
     
@@ -87,10 +96,14 @@ public class LoginTests2 {
 
     @org.testng.annotations.Test
     public void positiveLogin(){
+        ExtentTest test = extentReports.startTest("Remember Login Test");
+        test.log(LogStatus.INFO, "Positive login Test Started!!");
         basePage.openLoginPage();
-        basePage.loginUser("genchevskiy@singree.com", "19021992qaqq");
+        basePage.loginUser("genchevskiy@singree.com", "19021992qa");
         basePage.searchForPositiveLoginResults();
         website.loginPage().clickLogoutButton();
+        test.log(LogStatus.PASS,"Test Passed!");
+        extentReports.endTest(test);
     }
 
     @org.testng.annotations.Test(dataProvider = "invalidEmailData", dataProviderClass = LoginData.class)

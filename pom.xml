@@ -41,12 +41,13 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls-reader</artifactId>
             <version>LATEST</version>
         </dependency>
+
+
 
         <dependency>
             <groupId>org.jxls</groupId>
@@ -73,11 +74,35 @@
         </dependency>
 
 
+
+
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <version>1.9.7</version>
         </dependency>
+
+
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.relevantcodes</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>2.41.2</version>
+        </dependency>
+
 
 
     </dependencies>
@@ -99,7 +124,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
             </plugin>
-
 
         </plugins>
     </build>
