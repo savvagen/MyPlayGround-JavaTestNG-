@@ -20,7 +20,7 @@ public class LoginTests3 {
     public static BasePage basePage;
     public static Website website;
 
-    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
+    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
 
 
     @BeforeMethod(alwaysRun = true)

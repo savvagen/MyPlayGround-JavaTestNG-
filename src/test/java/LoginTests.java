@@ -1,4 +1,3 @@
-import Utilities.Browser;
 import Utilities.DriverFactory;
 import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
@@ -34,9 +33,9 @@ public class LoginTests {
         // GET BROWSER FROM LOCAL DIRECTORY
         //driver = new ChromeDriver();
         //GET BROWSER FROM PROPERTY FILE
-        //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
+        driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
         // GET BROWSER FROM BROWSER UTILITY
-        driver = Browser.getBrowser("firefox");
+        //driver = Browser.getBrowser("firefox");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS.SECONDS);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);

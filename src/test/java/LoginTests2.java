@@ -1,4 +1,5 @@
 import Utilities.Browser;
+import Utilities.DriverFactory;
 import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
 import data.LoginData;
@@ -26,7 +27,7 @@ public class LoginTests2 {
     public static Website website;
     public static Browser browser;
 
-    //public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
+    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
 
 
 

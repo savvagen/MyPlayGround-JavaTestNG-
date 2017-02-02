@@ -2,11 +2,16 @@ package Utilities;
 
 
 import junitx.util.PropertyManager;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.URL;
 
 public class DriverFactory {
 
@@ -36,14 +41,13 @@ public class DriverFactory {
 
     public static WebDriver getDriver(BrowserType type) throws Exception{
 
-        /*
+
            if (PropertyManager.getProperty("USE_GRID").equalsIgnoreCase("true")){
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setBrowserName(type.getBrowsername());
             desiredCapabilities.setPlatform(Platform.WIN10);
             return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), desiredCapabilities);
-        }*/
-
+        }
 
         switch (type){
             case CHROME:
