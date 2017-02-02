@@ -1,31 +1,16 @@
 import Utilities.DriverFactory;
 import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
-import com.sun.javaws.BrowserSupportFactory;
 import data.LoginData;
-import junitx.util.PropertyManager;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pages.BasePage;
 import pages.Website;
-import sun.plugin2.util.BrowserType;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-
 
 
 @Listeners(MyTestListener.class)
@@ -36,12 +21,14 @@ public class LoginTests {
     public static BasePage basePage;
     public static Website website;
 
-    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
+    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
+
+    public LoginTests() throws IOException {
+    }
 
 
-    @BeforeMethod(alwaysRun = true)
-    public static void setUp() throws Exception{
-
+    @BeforeClass(alwaysRun = true)
+    public static void seUpClass(Object[] args) throws Exception {
         // GET BROWSER FROM DRIVER FACTORY
         driver = DriverFactory.getDriver(type);
 
@@ -51,30 +38,36 @@ public class LoginTests {
         //GET BROWSER FROM PROPERTY FILE
         //driver = DriverFactory.getDriver(DriverFactory.getBrowserTypeByProperty());
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS.SECONDS);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
         basePage = new BasePage(driver);
         //basePage = PageFactory.initElements(driver, pages.BasePage.class);
         website = new Website(driver);
 
+
     }
 
-
-
+    @BeforeMethod(alwaysRun = true)
+    public static void setUp() throws Exception{    }
 
     @AfterMethod(alwaysRun = true)
     public static void tearDown(ITestResult testResult) throws Exception {
         if (testResult.getStatus() == ITestResult.FAILURE){
             ScreenshotReporter.tackeScreensghot(driver, testResult.getMethod().getMethodName());
         }
+
+    }
+
+    @AfterClass(alwaysRun = true)
+    public static void tearDownClass(Object[] args){
         driver.quit();
     }
 
 
 
 
-    @org.testng.annotations.Test(groups = {"p1", "homePageTests"})
+    /*@org.testng.annotations.Test(groups = {"p1", "homePageTests"})
     public void homepageVerification(){
         basePage.openHomePage();
         basePage.searchForHomePageTitle();
@@ -118,6 +111,18 @@ public class LoginTests {
     @org.testng.annotations.Test(groups = {"p3", "loginPageTests"}, dependsOnMethods = "LoginTests.homepageVerification", dataProvider = "invalidEmailData", dataProviderClass = LoginData.class)
     public void invalidLoginTest(String email, String password, String error){
         website .loginUserWitchIncorrectEmail(email,password,error);
+    }*/
+
+    //ddt from exel sheet
+    @Test(dataProvider = "exelData2", dataProviderClass = LoginData.class)
+    public void invalidLoginTestEXEL(String email, String password, String errorMessage){
+        website .loginUserWitchIncorrectEmail(email,password,errorMessage);
+    }
+
+    //ddt from csv sheet
+    @Test(dataProvider = "csvData", dataProviderClass = LoginData.class)
+    public void invalidLoginTestCSV(String email, String password, String errorMessage){
+        website .loginUserWitchIncorrectEmail(email,password,errorMessage);
     }
 
 

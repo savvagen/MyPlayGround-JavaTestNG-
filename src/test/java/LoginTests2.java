@@ -2,18 +2,16 @@ import Utilities.DriverFactory;
 import Utilities.Listeners.MyTestListener;
 import Utilities.ScreenshotReporter;
 import data.LoginData;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import pages.BasePage;
 import pages.Website;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(MyTestListener.class)
@@ -26,7 +24,7 @@ public class LoginTests2 {
     public static BasePage basePage;
     public static Website website;
 
-    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.CHROME;
+    public static DriverFactory.BrowserType type = DriverFactory.BrowserType.FIREFOX;
 
 
     @BeforeMethod(alwaysRun = true)
@@ -62,7 +60,7 @@ public class LoginTests2 {
     }
 
 
-    /*@org.testng.annotations.Test
+    @org.testng.annotations.Test
     public void homepageVerification(){
         basePage.openHomePage();
         basePage.searchForHomePageTitle();
@@ -73,7 +71,7 @@ public class LoginTests2 {
     public void homePageProducts(){
         basePage.openHomePage();
         basePage.searchForhomepageNewestProducts();
-    }*/
+    }
 
     @org.testng.annotations.Test
     public void positiveLogin(){
@@ -83,7 +81,7 @@ public class LoginTests2 {
         website.loginPage().clickLogoutButton();
     }
 
-    /*@org.testng.annotations.Test(dataProvider = "invalidEmailData", dataProviderClass = LoginData.class)
+    @org.testng.annotations.Test(dataProvider = "invalidEmailData", dataProviderClass = LoginData.class)
     public void invalidLogin(String email, String password, String errorMessage){
         basePage.openLoginPage();
         basePage.loginWithInvalidData(email, password);
@@ -93,7 +91,7 @@ public class LoginTests2 {
     @org.testng.annotations.Test
     public void loginTest(){
         website.loginUserWithCredantials("genchevskiy@singree.com", "19021992qa");
-    }*/
+    }
 
 
 
